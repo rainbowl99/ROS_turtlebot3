@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+ 
+  <!-- Spwan turtlebot in Gazebo -->
+  <!-- Load turtlebot3 burger model and load urdf in the parameter service-->
+  <arg name="model" default="burger" />
+  <!--arg name="x_pos" default="0.8"/>
+  <arg name="y_pos" default="-1.75"/-->
+  <arg name="x_pos" default="0.8"/>
+  <arg name="y_pos" default="-1.75"/>
+  <arg name="z_pos" default="0.0"/>
+  <param name="robot_description" command="$(find xacro)/xacro $(find projet)/urdf/turtlebot3.urdf.xacro " />
+
+  <!--load Gazebo-->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find projet)/worlds/Projet2023_2.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Add robot model in Gazebo -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+
+  <!-- Run rviz -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mybot_description)/rviz/config.rviz"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> -->
+
+  <!-- Run line_follower_node -->
+  <node name="image_projection" pkg="projet" type="image_projection.py" output="screen" required="true"/>
+  <node name="driving_control" pkg="projet" type="driving_control.py" output="screen" required="true"/>
+  <node name="lane_following" pkg="projet" type="lane_following.py" output="screen"/>
+  <node name="obstacle" pkg="projet" type="obstacle.py" output="screen" /> 
+  <node name="couloir" pkg="projet" type="couloir.py" output="screen" />
+  <node name="cluttered_navigation" pkg="projet" type="cluttered_navigation.py" output="screen" required="true"/>
+
+</launch>
+
