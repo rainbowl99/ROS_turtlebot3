@@ -1,0 +1,6 @@
+int64 obstacle_start = 1
+
+---
+
+int64 pause_velocity = 1
+
