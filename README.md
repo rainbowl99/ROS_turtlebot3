@@ -11,4 +11,3 @@ Challenge 1: Following the line: this task requires the robot to move along a li
 Challenge 2: Moving in a corridor: this task requires the robot to navigate through a corridor with walls on both sides, relying heavily on data from the laser scanner.
 Challenge 3: Navigating in a cluttered environment: In this challenge, the robot needs to navigate through an environment full of obstacles without touching any of them and reach the exit.
 
-Translated with www.DeepL.com/Translator (free version)
